@@ -200,17 +200,16 @@ function fileFinder(directories, targetFile) {
 // pathFinder(desktop, 'everlong.flac'));       // => '/music/genres/rock/everlong.flac'
 // pathFinder(desktop, 'honeybadger.png'));     // => null
 function pathFinder(directories, targetFile) {
-    let result = ''
-    for(let key in directories) {
-        if(key === targetFile) {
-            return ('/' + key);
-        } else {
-            let ans = pathFinder(directories[key], targetFile)
-            if(ans) {
-                result = result + key + ans;
-                return result;
-            }
+
+    for(let name in directories) {
+        if(name === targetFile) return ('/' + name);
+
+        let subdir = directories[name]
+        let subpath = pathFinder(subdir, targetFile)
+        if (subpath) {
+            return name + subpath;
         }
+
     }
     return null;
 }
