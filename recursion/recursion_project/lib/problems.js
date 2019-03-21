@@ -119,10 +119,13 @@ function pow(base, exponent) {
 function flatten(data) {
     if (!Array.isArray(data)) return [data];
     let result = []
-    for(let i = 0; i < data.length; i++ ) {
-        let el = data[i];
-         result = result.concat(flatten(el))
-    }
+    // for(let i = 0; i < data.length; i++ ) {
+    //     let el = data[i];
+    //      result = result.concat(flatten(el))
+    // }
+    data.forEach(el => {
+        result.push(...flatten(el))
+    })
     return result;
 }
 
@@ -168,16 +171,22 @@ function flatten(data) {
 function fileFinder(directories, targetFile) {
 
     for (let key in directories) {
-        if (key === targetFile) {
+        if (key === targetFile || fileFinder(directories[key], targetFile)) {
             return true;
-        }else if(key[0] === '/') {
-           let ans = fileFinder(directories[key], targetFile);
-           if (ans === true) {
-               return true;
-           }
         }
     }
     return false
+    // for (let key in directories) {
+    //     if (key === targetFile) {
+    //         return true;
+    //     }else if(key[0] === '/') {
+    //        let ans = fileFinder(directories[key], targetFile);
+    //        if (ans === true) {
+    //            return true;
+    //        }
+    //     }
+    // }
+    // return false
 }
 
 
