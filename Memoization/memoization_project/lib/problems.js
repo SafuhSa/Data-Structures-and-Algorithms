@@ -16,7 +16,12 @@
 // lucasNumberMemo(41)  // => 370248451
 // lucasNumberMemo(42)  // => 599074578
 function lucasNumberMemo(n, memo = {}) {
+    if (n === 0) return 2;
+    if (n === 1) return 1;
+    if(n in memo) return memo[n];
 
+    memo[n] = lucasNumberMemo(n - 1, memo) + lucasNumberMemo(n - 2, memo)
+    return memo[n];
 }
 
 
@@ -34,7 +39,23 @@ function lucasNumberMemo(n, memo = {}) {
 // minChange([1, 5, 10, 25], 15)    // => 2, because 10 + 5 = 15
 // minChange([1, 5, 10, 25], 100)   // => 4, because 25 + 25 + 25 + 25 = 100
 function minChange(coins, amount, memo = {}) {
+    memo[0] = 0
+    if (coins.length === 0) return memo[amount];
 
+    let coin = coins[0];
+
+    for (let i = coin; i <= amount; i++) {
+        if (memo[i]) {
+            let pos = memo[i - coin] + 1
+            memo[i] = Math.min(pos, memo[i])
+        } else {
+            let num = i / coin
+            if (Math.floor(num) === num)
+                memo[i] = num;
+        }
+    }
+
+    return minChange(coins.slice(1), amount, memo)
 }
 
 
