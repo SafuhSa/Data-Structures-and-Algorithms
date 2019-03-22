@@ -39,23 +39,42 @@ function lucasNumberMemo(n, memo = {}) {
 // minChange([1, 5, 10, 25], 15)    // => 2, because 10 + 5 = 15
 // minChange([1, 5, 10, 25], 100)   // => 4, because 25 + 25 + 25 + 25 = 100
 function minChange(coins, amount, memo = {}) {
-    memo[0] = 0
-    if (coins.length === 0) return memo[amount];
+    function minChange(coins, amount, memo = {}) {
+        memo[0] = 0
+        if (coins.length === 0) return memo[amount];
 
-    let coin = coins[0];
+        let coin = coins[0];
+        let pos;
+        for (let i = coin; i <= amount; i++) {
 
-    for (let i = coin; i <= amount; i++) {
-        if (memo[i]) {
-            let pos = memo[i - coin] + 1
-            memo[i] = Math.min(pos, memo[i])
-        } else {
-            let num = i / coin
-            if (Math.floor(num) === num)
-                memo[i] = num;
+            pos = memo[i - coin] + 1
+            if (memo[i]) {
+                memo[i] = Math.min(pos, memo[i])
+            }
+            else {
+                memo[i] = pos
+            }
         }
+        console.log(memo)
+        return minChange(coins.slice(1), amount, memo)
     }
+    // memo[0] = 0
+    // if (coins.length === 0) return memo[amount];
 
-    return minChange(coins.slice(1), amount, memo)
+    // let coin = coins[0];
+
+    // for (let i = coin; i <= amount; i++) {
+    //     if (memo[i]) {
+    //         let pos = memo[i - coin] + 1
+    //         memo[i] = Math.min(pos, memo[i])
+    //     } else {
+    //         let num = i / coin
+    //         if (Math.floor(num) === num)
+    //             memo[i] = num;
+    //     }
+    // }
+
+    // return minChange(coins.slice(1), amount, memo)
 }
 
 
