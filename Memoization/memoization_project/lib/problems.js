@@ -39,43 +39,50 @@ function lucasNumberMemo(n, memo = {}) {
 // minChange([1, 5, 10, 25], 15)    // => 2, because 10 + 5 = 15
 // minChange([1, 5, 10, 25], 100)   // => 4, because 25 + 25 + 25 + 25 = 100
 function minChange(coins, amount, memo = {}) {
-    function minChange(coins, amount, memo = {}) {
-        memo[0] = 0
-        if (coins.length === 0) return memo[amount];
+    let arr = [0];
 
-        let coin = coins[0];
-        let pos;
-        for (let i = coin; i <= amount; i++) {
+    for (let i = 1; i <= amount; i++) {
+        arr[i] = amount + 1;
+    }
 
-            pos = memo[i - coin] + 1
-            if (memo[i]) {
-                memo[i] = Math.min(pos, memo[i])
-            }
-            else {
-                memo[i] = pos
+
+    for (let i = 1; i <= amount; i++) {
+        for (let j = 0; j < coins.length; j++) {
+            let coin = coins[j];
+            if (i >= coin) {
+                arr[i] = Math.min(arr[i], arr[i - coin] + 1)
             }
         }
-        console.log(memo)
-        return minChange(coins.slice(1), amount, memo)
     }
-    // memo[0] = 0
-    // if (coins.length === 0) return memo[amount];
 
-    // let coin = coins[0];
-
-    // for (let i = coin; i <= amount; i++) {
-    //     if (memo[i]) {
-    //         let pos = memo[i - coin] + 1
-    //         memo[i] = Math.min(pos, memo[i])
-    //     } else {
-    //         let num = i / coin
-    //         if (Math.floor(num) === num)
-    //             memo[i] = num;
-    //     }
-    // }
-
-    // return minChange(coins.slice(1), amount, memo)
+    return arr[amount] >= amount + 1 ? -1 : arr[amount];
 }
+//     memo[0] = 0;
+//     if (amount === 0) return 0;
+//     if (coins.length === 0) {
+//         if (memo[amount] >= (amount * 13)) return -1;
+//         return memo[amount];
+//     }
+
+//     let coin = coins[0];
+
+//     for (let i = 1; i <= amount; i++) {
+//         if (memo[i - coin] !== undefined) {
+//             let num = memo[i - coin] + 1;
+//             if (memo[i]) {
+//                 memo[i] = Math.min(num, memo[i]);
+//             } else {
+//                 memo[i] = num;
+//             }
+//         } else {
+//             if (memo[i] === undefined) {
+//                 memo[i] = amount * 13;
+//             }
+//         }
+//     }
+
+//     return minChange(coins.slice(1), amount, memo);
+// }
 
 
 module.exports = {
