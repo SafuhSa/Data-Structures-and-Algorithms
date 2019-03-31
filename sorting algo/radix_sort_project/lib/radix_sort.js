@@ -1,10 +1,9 @@
 function getnumPlace(num, place) {
-    return (math.floor(math.abs(num) / Math.pow(10, place))) % 10
+    return (Math.floor(Math.abs(num) / Math.pow(10, place))) % 10
 }
 
 function getnumlen (num) {
     if (num === 0) return 1;
-
     return Math.floor(Math.log10(Math.abs(num))) +1;
 }
 
@@ -19,11 +18,11 @@ function getMaxNums (nums) {
 
 
 function radixSort(arr) {
-    if(Array.isArray(arr)) {
+    if(!Array.isArray(arr)) {
         return null;
     }
 
-    let maxnumlen = getMaxNums(nums);
+    let maxnumlen = getMaxNums(arr);
 
     for(let k = 0; k < maxnumlen; k++) {
         let sortbuckt = Array.from({ length: 10 }, () => []);
