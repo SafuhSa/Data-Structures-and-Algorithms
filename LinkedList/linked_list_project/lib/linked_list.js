@@ -23,7 +23,8 @@
 // TODO: Implement a Linked List Node class here
 class Node {
     constructor(val) {
-
+        this.value = null;
+        this.next = null;
     }
 
 }
@@ -31,7 +32,9 @@ class Node {
 // TODO: Implement a Singly Linked List class here
 class LinkedList {
     constructor() {
-
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
     }
 
     // TODO: Implement the addToTail method here
@@ -46,7 +49,9 @@ class LinkedList {
 
     // TODO: Implement the addToHead method here
     addToHead(val) {
-
+        let newHead = new Node();
+        newHead.next = this.head;
+        this.head = newHead;
     }
 
     // TODO: Implement the removeHead method here
