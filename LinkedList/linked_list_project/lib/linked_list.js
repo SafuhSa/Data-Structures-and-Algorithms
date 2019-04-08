@@ -39,7 +39,7 @@ class LinkedList {
 
     // TODO: Implement the addToTail method here
     addToTail(val) {
-
+        
     }
 
     // TODO: Implement the removeTail method here
@@ -56,7 +56,14 @@ class LinkedList {
 
     // TODO: Implement the removeHead method here
     removeHead() {
+        if(this.head.next) {
+            let newhead = this.head.next;
+            this.head = this.head.next
+        }else {
+            this.head = undefined;
+        }
 
+        return this.head;
     }
 
     // TODO: Implement the contains method here
