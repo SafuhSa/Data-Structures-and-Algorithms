@@ -30,15 +30,10 @@
 //
 // const lruCache = new LRUCache(4);   => limit of 4 items
 // lruCache.set('a', 'A');
-
 // lruCache.set('b', 'B');
-
 // lruCache.set('c', 'C');
-
 // lruCache.set('d', 'D');
 // lruCache.set('e', 'E');
-// lruCache.set('c', 'c');
-// lruCache.set('b', 'b');
 //
 // lruCache.get('c')                   => 'C'
 // lruCache.get('b')                   => 'B'
@@ -63,69 +58,71 @@
 // TODO: Implement the LRUCacheItem class here
 class LRUCacheItem {
   constructor(val = null, key = null) {
-    this.value = val;
+    this.val = val;
     this.key = key;
+    this.node = null;
   }
 }
 
 // TODO: Implement the LRUCacheItem class here
 class LRUCache {
   constructor(limit) {
+    this.items = {};
+
+    this.ordering = new List();
+
     this.limit = limit;
-    this.lenght = 0;
-    this.list = new List()
+    this.length = 0;
   }
 
   // TODO: Implement the size method here
   size() {
-    return this.lenght;
+    return this.length;
   }
 
   // TODO: Implement the get method here
   get(key) {
-    let node = this.list.head;
-    while(node) {
-      if(node.val.key === key) {
-        this.promote(node)
-        return node.val.value;
-      }
-      node = node.next;
-    }
+    if (!this.items[key]) return null;
 
-    return null;
+    const item = this.items[key];
+    this.promote(item);
+
+    return item.val;
   }
 
   // TODO: Implement the set method here
   set(key, val) {
-    let node = this.list.head;
-    while(node) {
-      if (node.val.key === key) {
-        this.promote(node)
-        node.val.value = val;
-        return;
-      }
-      node = node.next;
-    }
+    let item;
+    // Set an existing item
+    if (this.items[key]) {
+      item = this.items[key];
+      item.val = val;
+      this.promote(item);
 
-    let cacheItem = new LRUCacheItem(val, key)
-    this.list.unshift(cacheItem);
-    if (this.isFull()) {
-      this.list.pop();
-      this.lenght--;
+      // Set a new item
+    } else {
+      // Make space if necessary
+      if (this.isFull()) this.prune();
+
+      item = new LRUCacheItem(val, key);
+      item.node = this.ordering.unshift(item);
+      this.items[key] = item;
+      this.length += 1;
     }
-    this.lenght+= 1;
   }
-  
+
   isFull() {
-    return this.lenght === this.limit
+    return this.length >= this.limit;
   }
-  
+
   prune() {
-    
+    const oldest = this.ordering.pop();
+    delete this.items[oldest.key];
+    this.length = Math.max(0, this.length - 1);
   }
-  
-  promote(node) {
-    this.list.moveToFront(node);
+
+  promote(item) {
+    this.ordering.moveToFront(item.node);
   }
 }
 
