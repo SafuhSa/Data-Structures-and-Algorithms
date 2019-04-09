@@ -42,11 +42,11 @@ class LinkedList {
         let newtail = new Node(val)
         if(this.length === 0) {
             this.head = newtail;
-            this.tail = newtail;
         } else {
             this.tail.next = newtail;
-            this.tail = newtail;
         }
+
+        this.tail = newtail;
         this.length += 1;
         return this;
     }
@@ -61,8 +61,8 @@ class LinkedList {
             newtail = node;
             node = node.next;
         }
-        newtail.next = null;
         this.tail = newtail;
+        this.tail.next = null;
  
         if (this.length === 1) {
             this.head = null;
@@ -100,9 +100,7 @@ class LinkedList {
         let node = this.head;
 
         while(node) {
-            if (node.value === target) {
-                return true;
-            }
+            if (node.value === target) return true;
             node = node.next;
         }
         return false;
@@ -110,15 +108,13 @@ class LinkedList {
 
     // TODO: Implement the get method here
     get(index) {
+        if (index < 0 || index >= this.length) return null;
         let node = this.head;
-        while(index >= 0 && node) {
-            if (index === 0) {
-                return node;
-            }
+        while(index > 0) {
             index -= 1;
             node = node.next;
         }
-        return null;
+        return node;
     }
 
     // TODO: Implement the set method here
@@ -131,24 +127,22 @@ class LinkedList {
 
     // TODO: Implement the insert method here
     insert(index, val) {
-        if(index === 0) {
-            this.addToHead(val);
-            return true;
-        }
+        if (index < 0 || index >= this.length) return false;
+        if(index === 0) return !!this.addToHead(val);
+        if(index === this.length) return !!this.addToTail(val)
+
         let prevNode = this.get(index -1);
-        if (!prevNode.next) return false;
-        let nextNode = prevNode.next;
         let currentNode = new Node(val);
+        currentNode.next = prevNode.next;
         prevNode.next = currentNode;
-        currentNode.next = nextNode;
         this.length +=1;
         return true;
     }
 
     // TODO: Implement the remove method here
     remove(index) {
+        if (index < 0 || index >= this.length) return undefined;
         let prevNode = this.get(index -1);
-        if(!prevNode || !prevNode.next) return undefined;
         let currNode = prevNode.next;
         let nextNode = currNode.next;
         prevNode.next = nextNode;
