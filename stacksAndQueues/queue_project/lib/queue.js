@@ -21,11 +21,46 @@
 // -----------
 
 class Node {
-
+  constructor(val=null, next=null) {
+    this.next = next;
+    this.value = val;
+  }
 }
 
 class Queue {
+  constructor() {
+    this.front = null;
+    this.back = null;
+    this.length = 0;
+  }
 
+  enqueue(val) {
+    let newNode = new Node(val);
+    if(!this.front) {
+      this.front = newNode;
+    }else {
+      this.back.next = newNode;
+    }
+
+    this.back = newNode;
+
+    return ++this.length;
+  }
+
+  dequeue() {
+    if(!this.length) return null;
+    if(this.length === 1) {
+      this.back = null;
+    }
+    let removed = this.front;
+    this.front = this.front.next;
+    this.length--;
+    return removed.value;
+  }
+
+  size() {
+    return this.length;
+  }
 }
 
 exports.Node = Node;
