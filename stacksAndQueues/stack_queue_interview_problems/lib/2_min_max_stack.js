@@ -36,7 +36,8 @@
 // minMaxStack.push(8);
 // minMaxStack.push(2);
 // minMaxStack.push(20);
-//
+//min [10, 8, 2]
+//max [10, 12, 20]
 // console.log(minMaxStack.min().value);   => 2
 // console.log(minMaxStack.max().value);   => 20
 //
@@ -68,6 +69,7 @@ class Node {
     constructor(val) {
         this.value = val;
         this.next = null;
+        this.min
     }
 }
 
