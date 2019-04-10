@@ -69,7 +69,6 @@ class Node {
     constructor(val) {
         this.value = val;
         this.next = null;
-        this.min
     }
 }
 
@@ -79,6 +78,8 @@ class Stack {
         this.top = null;
         this.bottom = null;
         this.length = 0;
+        this.max = [];
+        this.min = [];
     }
 
     push(val) {
@@ -86,10 +87,17 @@ class Stack {
         if (!this.top) {
             this.top = newNode;
             this.bottom = newNode;
+            this.max.push(newNode)
+            this.min.push(newNode)
         } else {
             const temp = this.top;
             this.top = newNode;
             this.top.next = temp;
+        }
+        if (this.max().value < newNode.valuel) {
+            this.max.push(newNode);
+        } else if (this.min().value > newNode.value) {
+            this.min.push(newNode)
         }
         return ++this.length;
     }
@@ -101,10 +109,25 @@ class Stack {
         const temp = this.top;
         if (this.top === this.bottom) {
             this.bottom = null;
+            this.min =[];
+            this.max = [];
         }
         this.top = this.top.next;
+        if (this.min() === temp) {
+            this.min.pop()
+        } else if (this.max === temp) {
+            this.max.pop();
+        }
         this.length--;
         return temp.value;
+    }
+    
+    min() {
+        return this.min[this.min.length -1]
+    }
+
+    max() {
+        return this.max[this.max.length - 1]
     }
 
     size() {
