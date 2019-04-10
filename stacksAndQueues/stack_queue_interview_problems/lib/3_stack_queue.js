@@ -68,20 +68,37 @@ class StackQueue {
     constructor() {
         this.front = null;
         this.back = null;
-        this.inStack = null;
-        this.outStack = null;
-        this.length = 0;
+        this.inStack = new Stack();
+        this.outStack = new Stack();
     }
 
     enqueue(val) {
+        let newNode = new Node(val)
+        if(!this.front) this.front = newNode;
 
+        if(this.back) this.back.next = newNode;
+        this.back = newNode;
+        this.inStack.push(newNode);
+        return this.size();
     }
 
     dequeue() {
+        if(!this.size()) return null;
+        if(this.size() === 1) this.back = null;
+        if(!this.outStack.length) {
+            while(this.inStack.length) {
+                this.outStack.push(this.inStack.pop())
+            }
+        }
+        this.outStack.pop();
+        let removed = this.front;
+        this.front = this.front.next;
 
+        return removed;
     }
+
     size() {
-        return this.length;
+        return this.inStack.length + this.outStack.length;
     }
 };
 
