@@ -1,9 +1,9 @@
 function breadthFirstArray(root) {
     let node = root;
-    while(node) {
+    // while(node) {
 
-        node = node.left;
-    }
+    //     node = node.left;
+    // }
 }
 
 module.exports = {
