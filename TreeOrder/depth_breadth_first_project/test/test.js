@@ -119,6 +119,12 @@ describe('treeHeight()', () => {
         b.right = e;
         expect(treeHeight(a)).to.equal(2);
 
+//              a
+//            /   \
+//           b     c
+//          / \
+//         d   e
+
         let w = new TreeNode('w');
         let x = new TreeNode('x');
         let y = new TreeNode('y');
@@ -128,7 +134,13 @@ describe('treeHeight()', () => {
         y.left = z;
         expect(treeHeight(w)).to.equal(3);
     });
-
+//              w
+//            /   
+//           x     
+//          / 
+//         y   
+//        /
+//       z
     it('should return -1 if the tree is empty', () => {
         expect(treeHeight(null)).to.equal(-1);
     });
