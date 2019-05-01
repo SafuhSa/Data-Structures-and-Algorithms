@@ -6,12 +6,8 @@ function breadthFirstArray(root) {
         let node = arr.shift();
         result.push(node.val)
 
-        if(node.left) {
-            arr.push(node.left);
-        }
-        if(node.right) {
-            arr.push(node.right);
-        }
+        if(node.left) arr.push(node.left);
+        if(node.right) arr.push(node.right);
     }
 
     return result;
