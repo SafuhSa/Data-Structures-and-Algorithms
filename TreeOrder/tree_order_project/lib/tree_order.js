@@ -3,9 +3,9 @@ function inOrderArray(root) {
 
     let result = [];
 
-    result = result.concat(inOrderArray(root.left))
-    result.push(root.val)
-    result = result.concat(inOrderArray(root.right))
+    result = result.concat(inOrderArray(root.left));
+    result.push(root.val);
+    result = result.concat(inOrderArray(root.right));
     return result;
 }
 

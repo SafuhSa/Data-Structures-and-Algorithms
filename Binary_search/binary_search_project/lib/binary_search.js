@@ -16,15 +16,14 @@ function binarySearch(array, target) {
 }
 
 function binarySearchIndex(array, target, lo=0, hi=array.length-1) {
-    if(lo === hi) {
+    if (lo === hi) {
         return -1;
     }
 
     let midIdx = Math.floor( (lo + hi) / 2);
-
-    if(target < array[midIdx]) {
+    if (target < array[midIdx]) {
         return binarySearchIndex(array, target, lo, midIdx);
-    }else if(target > array[midIdx]) {
+    }else if (target > array[midIdx]) {
         return binarySearchIndex(array, target, midIdx + 1, hi);
     }else {
         return midIdx;
