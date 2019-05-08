@@ -12,16 +12,17 @@ function numRegions(graph) {
 
     function dfs(num) {
         if(seen.has(num)) return false;
-        if(seeing.has(num)) return true;
+        // if(seeing.has(num)) return true;
 
-        seeing.add(num)
+        // seeing.add(num)
+        seen.add(num);
 
         for(let v of graph[num]) {
-            if(!dfs(v)) return false
+            dfs(v)
         }
 
-        seeing.delete(num);
-        seen.add(num);
+        // seeing.delete(num);
+        // seen.add(num);
         return true;
     }
 }
