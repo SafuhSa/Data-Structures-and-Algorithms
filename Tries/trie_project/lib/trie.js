@@ -57,7 +57,7 @@ class Trie {
         }
 
 
-        return root.isTerminal === true;
+        return root.isTerminal;
     }
 
     wordsWithPrefix(prefix='', root=this.root) {
