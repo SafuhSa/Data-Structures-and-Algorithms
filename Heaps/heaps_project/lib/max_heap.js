@@ -40,14 +40,14 @@ class MaxHeap {
     }
 
     siftDown(idx) {
-        if (idx === this.array.length - 1);
+        if (idx >= this.array.length - 1);
 
         let leftIdx = this.getLeftChild(idx);
         let rightIdx = this.getRightChild(idx);
         let leftVal = this.array[leftIdx];
         let rightVal = this.array[rightIdx];
 
-        if (leftVal === undefined && rightVal === undefined) return;
+
 
         let swapIdx;
         if (leftVal < rightVal) {
